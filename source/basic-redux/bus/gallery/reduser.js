@@ -6,6 +6,7 @@ import photo4 from '../../../theme/assets/photos/4.jpeg';
 
 // Types
 import { SHOW_NEXT_PHOTO } from './types';
+import { SHOW_PREVIOUS_PHOTO } from './types';
 
 const initialState = {
     photos: [{ id: '1', url: photo1 }, { id: '2', url: photo2 }, { id: '3', url: photo3 }, { id: '4', url: photo4 }],
@@ -23,8 +24,17 @@ export const galleryReducer = (state = initialState, action) => {
                 ...state,
                 selectedPhotoIndex: state.selectedPhotoIndex + 1,
             };
+        case SHOW_PREVIOUS_PHOTO:
+            if (state.selectedPhotoIndex === 0) {
+                return state;
+            }
+
+            return {
+                ...state,
+                selectedPhotoIndex: state.selectedPhotoIndex - 1,
+            };
 
         default:
             return state;
-    } 
+    }
 };

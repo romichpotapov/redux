@@ -12,18 +12,25 @@ import { store } from '../../init/store';
 
 // Actions
 import { showNextPhoto } from '../../bus/gallery/actions';
+import { showPreviousPhoto } from '../../bus/gallery/actions';
 
 @hot(module)
 export default class Gallery extends Component {
     _showNextPhoto = () => {
         store.dispatch(showNextPhoto);
         this.forceUpdate();
-    }
+    };
+
+    _showPreviousPhoto = () => {
+        store.dispatch(showPreviousPhoto);
+        this.forceUpdate();
+    };
+
     render () {
         const { 
             gallery: { photos, selectedPhotoIndex },
         } = store.getState();
-        const photo = photos.find((_, index) => index === selectedPhotoIndex);        
+        const photo = photos.find((_, index) => index === selectedPhotoIndex);
 
         const buttonActiveStyle1 = cx({ [Styles.buttonActive]: selectedPhotoIndex === 0 });
         const buttonActiveStyle2 = cx({ [Styles.buttonActive]: selectedPhotoIndex === 1 });
@@ -34,7 +41,7 @@ export default class Gallery extends Component {
             <section className = { Styles.gallery }>
                 <img src = { photo.url } />
                 <div>
-                    <button>←</button>
+                    <button onClick = { this._showPreviousPhoto }>←</button>
                     <button className = { buttonActiveStyle1 } value = '0'>
                         1
                     </button>
