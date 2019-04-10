@@ -10,19 +10,18 @@ export const api = {
                 },
             });
         },
-    },
-    create: {
-        fetch (comment) {
+
+        create (comment) {
             return fetch(`${MAIN_URL}/feed`, {
                 method:  'POST',
                 headers: {
                     'x-no-auth':    groupId,
                     'Content-Type': 'application/json',
                 },
-                body: {
-                    comment: JSON.stringify({ comment }),
-                },
+                body: JSON.stringify({
+                    'comment': comment,
+                }),
             });
         },
-    }
+    },
 };

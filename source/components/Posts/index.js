@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators({ fetchPostsAsync, createPostAsync }, dispatch),
-        
+
     };
 };
 
@@ -42,7 +42,6 @@ export default class Posts extends Component {
         const { actions } = this.props;
 
         actions.fetchPostsAsync();
-        actions.createPostAsync();
     }
 
     render () {
