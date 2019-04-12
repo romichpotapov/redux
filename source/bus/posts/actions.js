@@ -31,11 +31,8 @@ export const fetchPostsAsync = () => async (dispatch) => {
 
 export const createPostAsync = (comment) => async (dispatch) => {
     dispatch({
-        type: CREATE_POST_ASYNC,
+        type:    CREATE_POST_ASYNC,
+        payload: comment,
     });
-
-    await api.posts.create(comment);
-
-    dispatch(fetchPostsAsync());
 
 };
