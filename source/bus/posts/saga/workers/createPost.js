@@ -3,13 +3,24 @@ import { put, apply} from 'redux-saga/effects';
 
 // Instruments
 import { api } from '../../../../REST';
-import { createPost as createPostAC } from '../../actions';
+import { postsActions } from '../../actions';
+import { uiActions } from '../../../ui/action';
 
-export function* createPost () {
-    yield console.log('→ create Post SAGA');
+export function* createPost ({ payload: comment }) {
+    try {
+        yield put(uiActions.startFeching());
 
+        const response = yield apply(api, api.posts.create, [comment]);
+        const { data: post, message} = yield apply(response, response.json);
 
-    await api.posts.create(comment);
+        if (response.status !== 200) {
+            throw new Error(message);
+        }
 
-    dispatch(createPostAC());
+        yield put(postsActions.createPost(post));
+    } catch (error) {
+        yield put(uiActions.emitError(error, 'createPosst worker'));
+    } finally {
+        yield put(uiActions.stopFeching());
+    }
 }
