@@ -17,22 +17,22 @@ export const postsActions = {
             payload: post,
         };
     },
-    fetchPostsAsync: () => async (dispatch) => {
-        dispatch({
+    fetchPostsAsync: (posts) => {
+        return{
             type: types.FETCH_POSTS_ASYNC,
-        });
+        };
 
-        const response = await api.posts.fetch();
-        const result = await response.json();
+        // const response = await api.posts.fetch();
+        // const result = await response.json();
 
-        dispatch(postsActions.fillPosts(result.data));
+        // dispatch(postsActions.fillPosts(posts));
     },
 
-    createPostAsync: (comment) => async (dispatch) => {
-        dispatch({
+    createPostAsync: (comment) => {
+        return{
             type:    types.CREATE_POST_ASYNC,
             payload: comment,
-        });
+        };
 
     },
 };
